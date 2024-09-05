@@ -12,7 +12,7 @@ const Navbar = () => {
     { label: "Issues", href: "/issues" },
   ];
   return (
-    <nav className="flex justify-around items-center border-b h-14">
+    <nav className="flex items-center border-b h-14 gap-5 ml-5">
       <Link href="/">
         <AiFillBug className="text-2xl text-black" size={25} />
       </Link>
