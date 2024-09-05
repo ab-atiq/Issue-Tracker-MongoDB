@@ -27,7 +27,7 @@ export default function RootLayout({
         <Theme accentColor="violet" appearance="light">
           <Navbar />
           <main className="p-3">{children}</main>
-          <ThemePanel />
+          {/* <ThemePanel /> */}
         </Theme>
       </body>
     </html>
