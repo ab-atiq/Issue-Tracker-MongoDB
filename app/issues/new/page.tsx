@@ -1,13 +1,16 @@
 "use client";
-import { Button, Callout, TextArea, TextField } from "@radix-ui/themes";
+import { Button, Callout, Text, TextArea, TextField } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import SimpleMDE from "react-simplemde-editor"; // method-1
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { createIssueSchema } from "@/app/validationSchemas";
+import { z } from "zod";
 
 // method-2: Dynamically import SimpleMDE with SSR disabled
 // import dynamic from "next/dynamic";
@@ -15,14 +18,18 @@ import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 //   ssr: false,
 // });
 
-interface IssueForm {
-  title: string;
-  description: string;
-}
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
-  const { register, control, handleSubmit } = useForm<IssueForm>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
+  });
   // console.log(register("title"));
 
   const [error, setError] = useState<string | null>(null);
@@ -59,6 +66,11 @@ const NewIssuePage = () => {
         })}
       >
         <TextField.Root size="2" placeholder="Title" {...register("title")} />
+        {errors.title && (
+          <Text color="red" as="p">
+            {errors.title.message}
+          </Text>
+        )}
         <Controller
           name="description"
           control={control}
@@ -66,6 +78,12 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
+        {errors.description && (
+          <Text color="red" as="p">
+            {errors.description.message}
+          </Text>
+        )}
+
         <Button type="submit">Submit Issues</Button>
       </form>
     </div>
