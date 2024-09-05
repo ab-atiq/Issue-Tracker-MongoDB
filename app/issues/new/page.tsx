@@ -11,6 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SimpleMDE from "react-simplemde-editor"; // method-1
 import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
+import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 // method-2: Dynamically import SimpleMDE with SSR disabled
 // import dynamic from "next/dynamic";
@@ -36,6 +38,27 @@ const NewIssuePage = () => {
   // const [titleError, setTitleError] = useState<string | null>(null);
   // const [descriptionError, setDescriptionError] = useState<string | null>(null);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = handleSubmit(async (data) => {
+    // console.log(data);
+    try {
+      setIsSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+      setError("An unexpected error occurred. Please try again later.");
+      // if (error?.response?.data?.title) {
+      //   setTitleError(error?.response?.data?.title);
+      // }
+      // if (error?.response?.data?.description) {
+      //   setDescriptionError(error?.response?.data?.description);
+      // }
+    }
+  });
+
   return (
     <div>
       {error && (
@@ -46,31 +69,9 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        className="max-w-xl space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          // console.log(data);
-          try {
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            console.log(error);
-            setError("An unexpected error occurred. Please try again later.");
-            // if (error?.response?.data?.title) {
-            //   setTitleError(error?.response?.data?.title);
-            // }
-            // if (error?.response?.data?.description) {
-            //   setDescriptionError(error?.response?.data?.description);
-            // }
-          }
-        })}
-      >
+      <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
         <TextField.Root size="2" placeholder="Title" {...register("title")} />
-        {errors.title && (
-          <Text color="red" as="p">
-            {errors.title.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
@@ -78,13 +79,11 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        {errors.description && (
-          <Text color="red" as="p">
-            {errors.description.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button type="submit">Submit Issues</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          Submit Issues{isSubmitting && <Spinner />}
+        </Button>
       </form>
     </div>
   );
