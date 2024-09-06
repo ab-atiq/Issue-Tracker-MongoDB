@@ -13,6 +13,7 @@ import { createIssueSchema } from "@/app/validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import delay from "delay";
 
 // method-2: Dynamically import SimpleMDE with SSR disabled
 // import dynamic from "next/dynamic";
@@ -33,6 +34,7 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   // console.log(register("title"));
+  
 
   const [error, setError] = useState<string | null>(null);
   // const [titleError, setTitleError] = useState<string | null>(null);
@@ -44,7 +46,8 @@ const NewIssuePage = () => {
     // console.log(data);
     try {
       setIsSubmitting(true);
-      await axios.post("/api/issues", data);
+      await delay(2000);
+      // await axios.post("/api/issues", data);
       router.push("/issues");
     } catch (error) {
       console.log(error);
