@@ -60,7 +60,7 @@ const NewIssuePage = () => {
   });
 
   return (
-    <div>
+    <div className="max-w-xl space-y-3">
       {error && (
         <Callout.Root color="red" role="alert" className="mb-2">
           <Callout.Icon>
@@ -69,7 +69,7 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <TextField.Root size="2" placeholder="Title" {...register("title")} />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <Controller

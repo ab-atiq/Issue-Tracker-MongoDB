@@ -20,14 +20,10 @@ This is a simple issue tracker app built using Next.js and Tailwind CSS. It allo
     </tr>
     <tr>
         <td>Creating an issues</td>
-        <td>User authentication and authorization</td>
+        <td>User authentication</td>
     </tr>
     <tr>
         <td>Viewing an issue</td>
-        <td>Responsive design for mobile devices</td>
-    </tr>
-    <tr>
-        <td>Searching for issues</td>
         <td>Assigning an issue to a user</td>
     </tr>
     <tr>
@@ -45,6 +41,10 @@ This is a simple issue tracker app built using Next.js and Tailwind CSS. It allo
     <tr>
         <td></td>
         <td>Dashboard for managing issues</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Responsive design for mobile devices</td>
     </tr>
 </table>
 
