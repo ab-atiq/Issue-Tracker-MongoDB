@@ -7,14 +7,13 @@ import { AiFillBug } from "react-icons/ai";
 const Navbar = () => {
   const currentPath = usePathname();
   const links = [
-    { label: "Dashboard", href: "/dashboard" },
+    { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
   ];
   return (
     <nav className="flex items-center border-b h-14 gap-5 ml-5">
-      <Link href="/">
-        <AiFillBug className="text-2xl text-black" size={25} />
-      </Link>
+      <AiFillBug className="text-2xl text-black" size={25} />
+
       <ul className="flex gap-3">
         {links.map((link) => (
           <li
