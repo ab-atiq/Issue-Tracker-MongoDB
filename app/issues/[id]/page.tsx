@@ -23,7 +23,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   } catch (error) {
     notFound();
   }
-  await delay(2000);
+  await delay(1000);
 
   return (
     <div>

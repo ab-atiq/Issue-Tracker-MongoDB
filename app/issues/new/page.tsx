@@ -34,33 +34,24 @@ const NewIssuePage = () => {
   // console.log(register("title"));
 
   const [error, setError] = useState<string | null>(null);
-  // const [titleError, setTitleError] = useState<string | null>(null);
-  // const [descriptionError, setDescriptionError] = useState<string | null>(null);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
     // console.log(data);
     try {
       setIsSubmitting(true);
-      await delay(2000);
+      await delay(1000);
       await axios.post("/api/issues", data);
       router.push("/issues");
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);
       setError("An unexpected error occurred. Please try again later.");
-      // if (error?.response?.data?.title) {
-      //   setTitleError(error?.response?.data?.title);
-      // }
-      // if (error?.response?.data?.description) {
-      //   setDescriptionError(error?.response?.data?.description);
-      // }
     }
   });
 
   return (
-    <div className="max-w-xl space-y-3">
+    <div className="max-w-xl">
       {error && (
         <Callout.Root color="red" role="alert" className="mb-2">
           <Callout.Icon>
@@ -69,9 +60,10 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form onSubmit={onSubmit}>
+      <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root size="2" placeholder="Title" {...register("title")} />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
+
         <Controller
           name="description"
           control={control}
