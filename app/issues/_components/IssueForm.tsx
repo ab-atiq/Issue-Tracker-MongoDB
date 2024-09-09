@@ -2,6 +2,7 @@
 import { ErrorMessage, Spinner } from "@/app/components";
 import { issueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Issue } from "@prisma/client";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { Button, Callout, TextField } from "@radix-ui/themes";
 import axios from "axios";
@@ -12,13 +13,12 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
-// import SimpleMDE from "react-simplemde-editor"; // method-1
+import SimpleMDE from "react-simplemde-editor"; // method-1
 // method-2: Dynamically import SimpleMDE with SSR disabled
-import dynamic from "next/dynamic";
-import { Issue } from "@prisma/client";
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false,
-});
+// import dynamic from "next/dynamic";
+// const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+//   ssr: false,
+// });
 
 type IssueFormData = z.infer<typeof issueSchema>;
 
