@@ -12,12 +12,12 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import SimpleMDE from "react-simplemde-editor"; // method-1
+// import SimpleMDE from "react-simplemde-editor"; // method-1
 // method-2: Dynamically import SimpleMDE with SSR disabled
-// import dynamic from "next/dynamic";
-// const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-//   ssr: false,
-// });
+import dynamic from "next/dynamic";
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 

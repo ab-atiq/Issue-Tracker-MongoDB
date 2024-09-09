@@ -7,7 +7,7 @@ const LoadingIssueDetailPage = () => {
       <Heading>
         <Skeleton width="7rem" />
       </Heading>
-      <Flex className="space-x-3" my="2">
+      <Flex gap="3">
         <Skeleton width="4rem" />
         <Skeleton width="6rem" />
       </Flex>

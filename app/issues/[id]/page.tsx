@@ -5,10 +5,11 @@ import delay from "delay";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
-const page = async ({ params }: { params: { id: string } }) => {
+const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   // if (typeof params.id !== "number") {
   //   notFound();
   // }
+  await delay(1000);
   let issue = null;
   try {
     issue = await prisma.issue.findUnique({
@@ -23,12 +24,11 @@ const page = async ({ params }: { params: { id: string } }) => {
   } catch (error) {
     notFound();
   }
-  await delay(1000);
 
   return (
     <div>
       <Heading>{issue.title}</Heading>
-      <Flex className="space-x-3" my="2">
+      <Flex gap="3" align="center">
         <IssueStatusBadge status={issue.status} />
         <Text>Created At: {issue.createdAt.toDateString()}</Text>
       </Flex>
@@ -39,4 +39,4 @@ const page = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default IssueDetailPage;
