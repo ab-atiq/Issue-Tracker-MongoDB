@@ -7,6 +7,7 @@ import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
 import AuthOptions from "@/app/auth/AuthOptions";
+import AssignSelection from "./AssignSelection";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const session = await getServerSession(AuthOptions);
@@ -31,12 +32,13 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <Grid columns={{ initial: "1", sm: "5" }} gap="5">
-      <Box className="lg:col-span-4">
+      <Box className="md:col-span-4">
         <IssueDetails issue={issue} />
       </Box>
       {session && (
         <Box>
           <Flex direction="column" gap="4">
+            <AssignSelection />
             <EditIssueButton issueId={issue.id} />
             <DeleteIssueButton issueId={issue.id} />
           </Flex>
