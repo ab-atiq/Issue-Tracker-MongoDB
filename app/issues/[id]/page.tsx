@@ -5,8 +5,11 @@ import { notFound } from "next/navigation";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
+import { getServerSession } from "next-auth";
+import AuthOptions from "@/app/auth/AuthOptions";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
+  const session = await getServerSession(AuthOptions);
   // if (typeof params.id !== "number") {
   //   notFound();
   // }
@@ -31,12 +34,14 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
       <Box className="lg:col-span-4">
         <IssueDetails issue={issue} />
       </Box>
-      <Box>
-        <Flex direction="column" gap="4">
-          <EditIssueButton issueId={issue.id} />
-          <DeleteIssueButton issueId={issue.id} />
-        </Flex>
-      </Box>
+      {session && (
+        <Box>
+          <Flex direction="column" gap="4">
+            <EditIssueButton issueId={issue.id} />
+            <DeleteIssueButton issueId={issue.id} />
+          </Flex>
+        </Box>
+      )}
     </Grid>
   );
 };
