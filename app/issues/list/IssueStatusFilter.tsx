@@ -21,21 +21,23 @@ const IssueStatusFilter = () => {
       defaultValue={searchParams.get("status") || ""}
       onValueChange={(status) => {
         if (status === "ALL") status = "";
-        // const params = new URLSearchParams();
-        // if (status) params.append("status", status);
-        // if (searchParams.get("orderBy"))
-        //   params.append("orderBy", searchParams.get("orderBy")!);
+        // const query = status ? `?status=${status}` : "";
+        // router.push(`/issues/list${query}`);
 
-        // const query = params.size ? "?" + params.toString() : "";
-        // router.push("/issues/list" + query);
-        const query = status ? `?status=${status}` : "";
-        router.push(`/issues/list${query}`);
+        //solution: click status after order by column then remove orderBy from searchParams
+        const params = new URLSearchParams();
+        if (status) params.append("status", status);
+        if (searchParams.get("orderBy"))
+          params.append("orderBy", searchParams.get("orderBy")!);
+
+        const query = params.size ? "?" + params.toString() : "";
+        router.push("/issues/list" + query);
       }}
     >
       <Select.Trigger placeholder="Filter by status..." />
       <Select.Content>
         {statuses.map((status) => (
-          <Select.Item key={status.value} value={status.value || "ALL"}>
+          <Select.Item key={status.label} value={status.value || "ALL"}>
             {status.label}
           </Select.Item>
         ))}
