@@ -34,7 +34,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     // given id issue present in DB or not
     const issue = await prisma.issue.findUnique({
         where: {
-            id: parseInt(params.id)
+            id: params.id
         }
     })
     if (!issue) {
@@ -44,7 +44,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     // update issue
     const updatedIssue = await prisma.issue.update({
         where: {
-            id: parseInt(params.id)
+            id: params.id
         },
         data: { title: body.title, description: body.description, assignedToUserId }
     })
@@ -57,7 +57,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     // delay(500); // make server slow
     const issue = await prisma.issue.findUnique({
         where: {
-            id: parseInt(params.id)
+            id: params.id
         }
     })
     if (!issue) {
@@ -65,7 +65,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     }
     await prisma.issue.delete({
         where: {
-            id: parseInt(params.id)
+            id: params.id
         }
     })
     return NextResponse.json({})

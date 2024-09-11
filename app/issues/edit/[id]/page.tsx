@@ -14,7 +14,7 @@ interface Props {
 const EditIssuePage = async ({ params }: Props) => {
   const issue = await prisma.issue.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: params.id,
     },
   });
   if (!issue) notFound();
@@ -26,7 +26,7 @@ export default EditIssuePage;
 export async function generateMetadata({ params }: Props) {
   const issue = await prisma.issue.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: params.id,
     },
   });
   return {
