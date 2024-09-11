@@ -41,7 +41,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     // console.log(data);
     try {
       setIsSubmitting(true);
-      await delay(1000);
+      // await delay(1000);
       if (issue) {
         await axios.patch(`/api/issues/${issue.id}`, data);
       } else {

@@ -7,6 +7,7 @@ import delay from "delay";
 import IssueActions from "./IssueActions";
 import { Issue, Status } from "@prisma/client";
 import IssueTable, { columnNames, IssueQuery } from "./IssueTable";
+import { Metadata } from "next";
 
 interface Props {
   searchParams: IssueQuery;
@@ -38,7 +39,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   const issueCount = await prisma.issue.count({ where });
 
-  await delay(1000);
+  // await delay(1000);
 
   return (
     <Flex direction="column" gap="3">
@@ -54,5 +55,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
 };
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Issue List",
+  description: "View project all issues",
+};
 
 export default IssuesPage;

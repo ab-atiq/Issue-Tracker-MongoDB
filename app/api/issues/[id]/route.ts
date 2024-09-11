@@ -9,7 +9,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     const session = await getServerSession(AuthOptions)
     if (!session) return NextResponse.json({}, { status: 401 })
 
-    delay(500); // make server slow
+    // delay(500); // make server slow
 
     // body data validation
     const body = await request.json();
@@ -54,7 +54,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     const session = await getServerSession(AuthOptions)
     if (!session) return NextResponse.json({}, { status: 401 })
-    delay(500); // make server slow
+    // delay(500); // make server slow
     const issue = await prisma.issue.findUnique({
         where: {
             id: parseInt(params.id)
