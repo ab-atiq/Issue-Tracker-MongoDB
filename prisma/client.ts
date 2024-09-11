@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 
 const prismaClientSingleton = () => {
+  // return new PrismaClient({ log: ['query', 'info', 'warn', 'error'] }) // use to show log in server
   return new PrismaClient()
 }
 
