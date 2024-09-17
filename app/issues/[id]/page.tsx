@@ -11,7 +11,7 @@ import AssignSelection from "./AssignSelection";
 import { cache } from "react";
 import { number } from "zod";
 
-const FetchIssue = cache((userId: number) =>
+const FetchIssue = cache((userId: string) =>
   prisma.issue.findUnique({ where: { id: userId } })
 );
 
@@ -27,7 +27,7 @@ const IssueDetailPage = async ({ params }: Props) => {
   // await delay(1000);
   let issue = null;
   try {
-    issue = await FetchIssue(parseInt(params.id));
+    issue = await FetchIssue(params.id);
     // not data found in db then not found page show
     if (!issue) {
       notFound();
@@ -57,7 +57,7 @@ const IssueDetailPage = async ({ params }: Props) => {
 export default IssueDetailPage;
 
 export async function generateMetadata({ params }: Props) {
-  const issue = await FetchIssue(parseInt(params.id));
+  const issue = await FetchIssue(params.id);
   return {
     title: `Details of issue: ${issue?.title}`,
     description: `Details of issue: ${issue?.title}`,
