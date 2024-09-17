@@ -61,11 +61,15 @@ const NavLinks = () => {
 };
 
 const AuthStatus = () => {
+  const currentPath = usePathname();
   const { status, data: session } = useSession();
   if (status === "loading") return <Skeleton width="4rem" />;
   if (status === "unauthenticated")
     return (
-      <Link className="nav-link" href="/api/auth/signin">
+      <Link
+        className="nav-link"
+        href={`/api/auth/signin?callbackUrl=${currentPath}`}
+      >
         Login
       </Link>
     );
@@ -88,7 +92,7 @@ const AuthStatus = () => {
               <Text>{session!.user!.email}</Text>
             </DropdownMenu.Label>
             <DropdownMenu.Item>
-              <Link href="/api/auth/signout">Log out</Link>
+              <Link href="/api/auth/signout?callbackUrl=/">Logout</Link>
             </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Root>

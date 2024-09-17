@@ -1,6 +1,6 @@
 import React from "react";
 import { IssueStatusBadge, Link, Pagination } from "@/app/components";
-import { Table } from "@radix-ui/themes";
+import { Table, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import { Issue, Status } from "@prisma/client";
@@ -51,6 +51,15 @@ const IssueTable = ({ searchParams, issues }: Props) => {
             ))}
           </Table.Row>
         </Table.Header>
+        {issues.length <= 0 && (
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell colSpan={3}>
+                <Text>No issues found</Text>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        )}
         <Table.Body>
           {issues.map((issue) => (
             <Table.Row key={issue.id}>
