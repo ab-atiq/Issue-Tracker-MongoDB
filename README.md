@@ -1,6 +1,6 @@
 # Issue Tracker
 
-Live demo in [Vercel](https://issue-tracker-project-eight.vercel.app/)
+Live demo in Vercel [https://issue-tracker-project-eight.vercel.app/](https://issue-tracker-mongo-db.vercel.app/)
 
 ## Description
 
@@ -53,16 +53,14 @@ This is a simple issue tracker app built using Next.js and Tailwind CSS. It allo
 - Next.js
 - Tailwind CSS
 - DaisyUI
-- MySQL
+- MongoDB
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/Programming-Hero/issue-tracker.git`
-2. Navigate to the project directory: `cd issue-tracker`
+1. Clone the repository: `git clone https://github.com/ab-atiq/Issue-Tracker-MongoDB`
+2. Navigate to the project directory: `cd Issue-Tracker-MongoDB`
 3. Install dependencies: `npm install`
-4. Create a `.env` file in the root directory and add the following environment variables:
-   - `NEXT_PUBLIC_API_URL`: The URL of your API (e.g., `https://api.example.com`)
-   - `NEXT_PUBLIC_API_KEY`: Your API key
+4. Create a `.env` file in the root directory and add the environment variables like `.env.example`
 5. Run the development server: `npm run dev`
 6. Open your browser and navigate to `http://localhost:3000`
 
